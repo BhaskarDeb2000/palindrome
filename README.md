@@ -19,8 +19,8 @@ This is a simple **Palindrome Checker** built with **React and TypeScript**. The
 ## Installation & Running Locally
 1. Clone this repository:
    ```sh
-   git clone https://github.com/yourusername/palindrome-checker.git
-   cd palindrome-checker
+   git clone https://github.com/BhaskarDeb2000/palindrome.git
+   cd palindrome
    ```
 2. Install dependencies:
    ```sh
@@ -31,4 +31,3 @@ This is a simple **Palindrome Checker** built with **React and TypeScript**. The
    npm run dev
    ```
 4. Open in the browser: `http://localhost:3000`
-
