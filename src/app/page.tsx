@@ -15,6 +15,12 @@ const PalindromeChecker: React.FC = () => {
     );
   };
 
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      handleCheck();
+    }
+  };
+
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-r from-indigo-500 to-purple-500 p-6 text-white">
       <div className="bg-white shadow-lg rounded-2xl p-8 max-w-lg w-full text-gray-900">
@@ -25,6 +31,7 @@ const PalindromeChecker: React.FC = () => {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onKeyPress={handleKeyPress} // Added key press event
           placeholder="Enter a phrase"
           className="border border-gray-300 rounded-lg p-3 w-full text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
