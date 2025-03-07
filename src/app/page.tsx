@@ -6,18 +6,46 @@ import { isPalindrome } from "./helper/index";
 const PalindromeChecker: React.FC = () => {
   const [input, setInput] = useState("");
   const [result, setResult] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
+  // Handle the result of checking if input is a palindrome
   const handleCheck = () => {
-    setResult(
-      isPalindrome(input)
-        ? "✅ Yes, it's a palindrome!"
-        : "❌ No, it's not a palindrome."
-    );
+    const trimmedInput = input.trim(); // Trim input to remove leading/trailing spaces
+    if (trimmedInput === "") {
+      setError("Please enter a valid text.");
+      setResult(null);
+      return;
+    }
+
+    setError(null); // Clear the error if input is valid
+
+    const palindromeResult = isPalindrome(trimmedInput)
+      ? "✅ Yes, it's a palindrome!"
+      : "❌ No, it's not a palindrome.";
+    setResult(palindromeResult);
   };
 
+  // Handle key press event (Enter key to trigger palindrome check)
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       handleCheck();
+    }
+  };
+
+  // Handle input change for real-time feedback
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setInput(value);
+    if (value.trim() === "") {
+      setError("Please enter a valid text.");
+      setResult(null);
+    } else {
+      setError(null);
+      setResult(
+        isPalindrome(value.trim())
+          ? "✅ Yes, it's a palindrome!"
+          : "❌ No, it's not a palindrome."
+      );
     }
   };
 
@@ -30,18 +58,17 @@ const PalindromeChecker: React.FC = () => {
         <input
           type="text"
           value={input}
-          onChange={(e) => setInput(e.target.value)}
+          onChange={handleInputChange}
           onKeyPress={handleKeyPress} // Added key press event
           placeholder="Enter a phrase"
           className="border border-gray-300 rounded-lg p-3 w-full text-lg focus:outline-none focus:ring-2 focus:ring-indigo-500"
         />
-        <button
-          onClick={handleCheck}
-          className="mt-4 w-full bg-indigo-600 text-white px-5 py-3 rounded-lg font-semibold text-lg hover:bg-indigo-700 transition duration-300"
-        >
-          Check
-        </button>
-        {result && (
+        {error && (
+          <p className="mt-4 text-center text-xl font-semibold text-red-600">
+            {error}
+          </p>
+        )}
+        {result && !error && (
           <p className="mt-4 text-center text-xl font-semibold">{result}</p>
         )}
       </div>
